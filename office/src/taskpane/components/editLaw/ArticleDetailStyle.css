@@ -1,0 +1,20 @@
+#show-ellipsis {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: red;
+}
+
+.tree{
+    .el-tree-node {
+        white-space: normal;
+        .el-tree-node__content {
+          height: 100%;
+          align-items: start;
+          line-height: normal;
+        }
+      }
+}
+

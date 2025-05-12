@@ -1,0 +1,74 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor User
+participant View
+participant Controller
+participant Service
+participant ESRepository
+participant MySQLRepository
+database ESDatabase
+database MySQLDatabase
+
+activate User
+activate View
+User -> View: 进入本页面
+activate Controller
+View -> Controller: getSimpleDocById
+activate Service
+Controller -> Service: getById
+activate MySQLRepository
+Service -> MySQLRepository: search
+activate MySQLDatabase
+MySQLRepository -> MySQLDatabase: search
+MySQLDatabase --> MySQLRepository: LawDocPo
+MySQLRepository --> Service: LawDocPo
+Service --> Controller: LawDocPo
+Controller --> View: ResultVo<LawDocVo>
+View -> View: 显示法律基本信息
+activate View
+deactivate View
+View -> Controller: getRelated
+Controller -> Service: getRelatedLaws
+activate ESRepository
+Service -> ESRepository: getMentionedDocTilesDocs
+activate ESDatabase
+ESRepository -> ESDatabase: search
+ESDatabase --> ESRepository: SearchResponse<LawDocPo>
+ESRepository --> Service: List<Pair<LawDocPo, Double>>
+Service -> ESRepository: getSimilarTitleLawDocs
+ESRepository -> ESDatabase: search
+ESDatabase --> ESRepository: SearchResponse<LawDocPo>
+deactivate ESDatabase
+ESRepository --> Service: List<Pair<LawDocPo, Double>>
+deactivate ESRepository
+Service --> Controller:  List<LawDocVo>
+Controller --> View: ResultVo<List<LawDocVo>>
+View -> View: 显示相关法律列表
+activate View
+deactivate View
+View --> User: 展示结果
+User -> View: 用户查看正文
+View -> Controller: 获取法律正文各个部分
+Controller -> Service: 获取法律正文各个部分
+Service -> MySQLRepository: 获取法律正文各个部分
+MySQLRepository -> MySQLDatabase: search
+MySQLDatabase --> MySQLRepository: 法律正文各个部分
+deactivate MySQLDatabase
+MySQLRepository --> Service: 法律正文各个部分
+deactivate MySQLRepository
+Service --> Controller: 法律正文各个部分
+deactivate Service
+Controller --> View: 法律正文各个部分
+deactivate Controller
+View -> View: 重新组合各个部分
+activate View
+deactivate View
+View --> User: 展示结果
+User -> View: 展开/收起一个项目的折叠列表
+View --> User: 展开/收起该项目列表
+deactivate User
+deactivate View
+@enduml

@@ -1,0 +1,119 @@
+{
+  "mappings": {
+    "properties": {
+      "articleSum": {
+        "type": "long"
+      },
+      "divided": {
+        "type": "integer"
+      },
+      "docURL": {
+        "type": "keyword"
+      },
+      "docCategory": {
+        "type": "keyword"
+      },
+      "docText": {
+        "type": "text",
+        "analyzer": "ik_smart"
+      },
+      "expiry": {
+        "type": "date",
+        "format": "yyyy-MM-dd"
+      },
+      "fullContent": {
+        "type": "text",
+        "analyzer": "ik_max_word",
+        "fielddata": true
+      },
+      "id": {
+        "type": "keyword"
+      },
+      "office": {
+        "type": "text",
+        "analyzer": "ik_smart"
+      },
+      "properties": {
+        "properties": {
+          "title": {
+            "properties": {
+              "analyzer": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "fields": {
+                "properties": {
+                  "title": {
+                    "properties": {
+                      "analyzer": {
+                        "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                          }
+                        }
+                      },
+                      "type": {
+                        "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "type": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "publish": {
+        "type": "date",
+        "format": "yyyy-MM-dd"
+      },
+      "status": {
+        "type": "keyword"
+      },
+      "suffix": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          },
+          "title": {
+            "type": "completion",
+            "analyzer": "ik_smart",
+            "preserve_separators": true,
+            "preserve_position_increments": true,
+            "max_input_length": 50
+          }
+        },
+        "analyzer": "ik_smart"
+      },
+      "type": {
+        "type": "keyword"
+      }
+    }
+  }
+}

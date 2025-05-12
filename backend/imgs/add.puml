@@ -1,0 +1,54 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor User
+participant View
+participant Controller
+participant Service
+participant ESRepository
+participant MySQLRepository
+database ESDatabase
+database MySQLDatabase
+
+activate User
+activate View
+loop 还有需要导入的法律
+    User -> View: 输入法律基本信息
+    User -> View: 输入法律正文或上传文档
+end
+User -> View: 点击确定按钮
+activate Controller
+activate Service
+activate ESRepository
+activate MySQLRepository
+activate ESDatabase
+activate MySQLDatabase
+loop 还有需要新建的法律
+    View -> Controller: create
+    Controller -> Service: create
+    Service -> MySQLRepository: insert
+    MySQLRepository -> MySQLDatabase: insert
+    MySQLDatabase --> MySQLRepository: int
+    MySQLRepository --> Service: int
+    Service -> ESRepository: insert
+    ESRepository -> ESDatabase: insert
+    ESDatabase --> ESRepository: IndexResponse
+    ESRepository --> Service: boolean
+    Service --> Controller: LawDocVo
+    Controller --> View: ResultVo<LawDocVo>
+end
+deactivate Controller
+deactivate Service
+deactivate ESRepository
+deactivate MySQLRepository
+deactivate ESDatabase
+deactivate MySQLDatabase
+View -> View: 跳转至我的上传页面
+activate View
+deactivate View
+View --> User: 跳转至新页面
+deactivate View
+deactivate User
+@enduml

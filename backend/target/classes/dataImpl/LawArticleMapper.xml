@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lkms.mapper.LawArticleMapper">
+
+    <resultMap id="BaseResultMap" type="com.lkms.po.lawPo.LawArticlePo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="articleSeq" jdbcType="VARCHAR" property="articleSeq"/>
+        <result column="articleName" jdbcType="VARCHAR" property="articleName"/>
+        <result column="sectionId" jdbcType="VARCHAR" property="sectionId"/>
+        <result column="chapterId" jdbcType="VARCHAR" property="chapterId"/>
+        <result column="partId" jdbcType="VARCHAR" property="partId"/>
+        <result column="docId" jdbcType="VARCHAR" property="docId"/>
+    </resultMap>
+
+    <select id="selectByDocId" resultMap="BaseResultMap" parameterType="String">
+        select *
+        from lawArticle
+        where docId = #{docId};
+    </select>
+
+    <select id="getByBatch" resultMap="BaseResultMap" parameterType="int">
+        select * from lawArticle limit #{offset}, #{limit}
+    </select>
+</mapper>

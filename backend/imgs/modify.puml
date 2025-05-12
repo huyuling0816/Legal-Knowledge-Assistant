@@ -1,0 +1,66 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor User
+participant View
+participant Controller
+participant Service
+participant ESRepository
+participant MySQLRepository
+database ESDatabase
+database MySQLDatabase
+
+alt 修改法律
+activate User
+activate View
+User -> View: 点击编辑按钮
+View -> View: 展示法律更新页面
+activate View
+deactivate View
+View --> User: 法律更新页面
+User -> View: 输入更新内容
+activate Controller
+View -> Controller: updateLaw
+activate Service
+Controller -> Service: updateLaw
+activate MySQLRepository
+Service -> MySQLRepository: updateById
+activate MySQLDatabase
+MySQLRepository -> MySQLDatabase: updateById
+MySQLDatabase --> MySQLRepository: int
+MySQLRepository --> Service: int
+activate ESRepository
+Service -> ESRepository: updateInEs
+activate ESDatabase
+ESRepository -> ESDatabase: update
+ESDatabase --> ESRepository: UpdateResponse
+ESRepository --> Service: boolean
+Service --> Controller: LawDocVo
+Controller --> View: ResultVo<LawDocVo>
+View --> User: 结果反馈
+else 删除法律
+User -> View: 点击删除按钮
+View -> Controller: deleteLaw
+Controller -> Service: deleteLaw
+Service -> MySQLRepository: deleteByMap
+MySQLRepository -> MySQLDatabase: delete
+MySQLDatabase --> MySQLRepository: int
+deactivate MySQLDatabase
+MySQLRepository --> Service: int
+deactivate MySQLRepository
+Service -> ESRepository: deleteInEs
+ESRepository -> ESDatabase: delete
+ESDatabase --> ESRepository: DeleteByQueryResponse
+deactivate ESDatabase
+ESRepository --> Service: boolean
+deactivate ESRepository
+Service --> Controller: boolean
+deactivate Service
+Controller --> View: ResultVo<String>
+deactivate Controller
+View --> User: 结果反馈
+deactivate User
+deactivate View
+end
+@enduml

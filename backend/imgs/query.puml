@@ -1,0 +1,53 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor User
+participant View
+participant Controller
+participant Service
+participant ESRepository
+'participant MySQLRepository
+database ESDatabase
+'database MySQLDatabase
+
+activate User
+activate View
+loop 用户输入内容
+    User -> View: 输入搜索条件、搜索内容
+end
+activate Controller
+View -> Controller: query
+activate Service
+Controller -> Service: query
+activate ESRepository
+Service -> ESRepository: searchDoc
+activate ESDatabase
+ESRepository -> ESDatabase: search
+ESDatabase --> ESRepository: SearchResponse<LawDocPo>
+alt searchRangeField == "fullContent"
+    loop 还有下一篇法律
+        ESRepository -> ESRepository: searchArticle
+        ESRepository -> ESDatabase: search
+        ESDatabase --> ESRepository: SearchResponse<LawArticlePo>
+    end
+end
+deactivate ESDatabase
+ESRepository --> Service: PageInfo<LawDocPo>
+deactivate ESRepository
+Service --> Controller: PageInfo<LawDocVo>
+deactivate Service
+Controller --> View: ResultVo<PageInfo<LawDocVo>>
+deactivate Controller
+View --> User: ResultVo<PageInfo<LawDocVo>>
+User -> View: 对某一项展开内容
+View -> View: 显示简略的正文或相关法条
+activate View
+deactivate View
+User -> View: 查看某一项详情
+
+View -> View: 跳转至法律详情页面
+activate View
+deactivate View
+
+@enduml

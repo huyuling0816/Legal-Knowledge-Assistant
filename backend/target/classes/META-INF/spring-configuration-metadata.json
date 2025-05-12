@@ -1,0 +1,105 @@
+{
+  "groups": [
+    {
+      "name": "cos",
+      "type": "com.lkms.config.COSConfig",
+      "sourceType": "com.lkms.config.COSConfig"
+    },
+    {
+      "name": "spring.elasticsearch",
+      "type": "com.lkms.config.EsConfig",
+      "sourceType": "com.lkms.config.EsConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cos.app-id",
+      "type": "java.lang.String",
+      "sourceType": "com.lkms.config.COSConfig"
+    },
+    {
+      "name": "cos.base-url",
+      "type": "java.lang.String",
+      "sourceType": "com.lkms.config.COSConfig"
+    },
+    {
+      "name": "cos.bucket-name",
+      "type": "java.lang.String",
+      "sourceType": "com.lkms.config.COSConfig"
+    },
+    {
+      "name": "cos.folder-prefix",
+      "type": "java.lang.String",
+      "sourceType": "com.lkms.config.COSConfig"
+    },
+    {
+      "name": "cos.note-prefix",
+      "type": "java.lang.String",
+      "sourceType": "com.lkms.config.COSConfig"
+    },
+    {
+      "name": "cos.region-name",
+      "type": "java.lang.String",
+      "sourceType": "com.lkms.config.COSConfig"
+    },
+    {
+      "name": "cos.secret-id",
+      "type": "java.lang.String",
+      "sourceType": "com.lkms.config.COSConfig"
+    },
+    {
+      "name": "cos.secret-key",
+      "type": "java.lang.String",
+      "sourceType": "com.lkms.config.COSConfig"
+    },
+    {
+      "name": "spring.elasticsearch.address",
+      "type": "java.lang.String",
+      "description": "集群地址，如果有多个用“,”隔开",
+      "sourceType": "com.lkms.config.EsConfig"
+    },
+    {
+      "name": "spring.elasticsearch.connect-timeout",
+      "type": "java.lang.Integer",
+      "description": "连接超时时间",
+      "sourceType": "com.lkms.config.EsConfig"
+    },
+    {
+      "name": "spring.elasticsearch.connection-request-timeout",
+      "type": "java.lang.Integer",
+      "description": "获取连接的超时时间",
+      "sourceType": "com.lkms.config.EsConfig"
+    },
+    {
+      "name": "spring.elasticsearch.index",
+      "type": "java.lang.String",
+      "description": "数据查询的索引",
+      "sourceType": "com.lkms.config.EsConfig"
+    },
+    {
+      "name": "spring.elasticsearch.max-connect-num",
+      "type": "java.lang.Integer",
+      "description": "最大连接数",
+      "sourceType": "com.lkms.config.EsConfig"
+    },
+    {
+      "name": "spring.elasticsearch.max-connect-per-route",
+      "type": "java.lang.Integer",
+      "description": "最大路由连接数",
+      "sourceType": "com.lkms.config.EsConfig"
+    },
+    {
+      "name": "spring.elasticsearch.schema",
+      "type": "java.lang.String",
+      "description": "协议",
+      "sourceType": "com.lkms.config.EsConfig"
+    },
+    {
+      "name": "spring.elasticsearch.socket-timeout",
+      "type": "java.lang.Integer",
+      "description": "Socket 连接超时时间",
+      "sourceType": "com.lkms.config.EsConfig"
+    }
+  ],
+  "hints": []
+}

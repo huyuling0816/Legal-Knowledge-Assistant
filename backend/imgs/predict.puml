@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor 用户
+participant 前端界面
+participant 后端
+activate 用户
+activate 前端界面
+
+用户 -> 前端界面: 输入需要预测的内容
+activate 后端
+前端界面 -> 后端: 发送查询请求
+后端 --> 前端界面: 法律逻辑和相关法条
+前端界面 --> 用户: 判决预测和相关法条
+deactivate 后端
+
+用户 -> 前端界面: 查看法律详情
+activate 后端
+前端界面 -> 后端: 发送查询请求
+后端 --> 前端界面: 法律内包含的suo
+前端界面 --> 用户: 判决预测和相关法条
+deactivate 后端
+@enduml

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lkms.mapper.LawDocMapper">
+
+    <resultMap id="BaseResultMap" type="com.lkms.po.lawPo.LawDocPo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="office" jdbcType="VARCHAR" property="office"/>
+        <result column="publish" jdbcType="TIMESTAMP" property="publish"/>
+        <result column="expiry" jdbcType="TIMESTAMP" property="expiry"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="docCategory" jdbcType="VARCHAR" property="docCategory"/>
+        <result column="suffix" jdbcType="VARCHAR" property="suffix"/>
+        <result column="docText" jdbcType="VARCHAR" property="docText"/>
+        <result column="articleSum" jdbcType="SMALLINT" property="articleSum"/>
+        <result column="divided" jdbcType="SMALLINT" property="divided"/>
+        <result column="docURL" jdbcType="VARCHAR" property="docURL"/>
+        <result column="fullContent" jdbcType="LONGVARCHAR" property="fullContent"/>
+    </resultMap>
+
+    <select id="selectByName" parameterType="string" resultType="string">
+        select doc.id
+        from lawdoc doc
+        where doc.title = #{docName}
+    </select>
+
+    <update id="updateByDocName" parameterType="String">
+        UPDATE lawdoc doc
+        SET doc.docText     = #{docText},
+            doc.fullContent = #{fullContent},
+            doc.divided = 1
+        WHERE doc.title = #{docName}
+    </update>
+
+    <select id="getByBatch" resultMap="BaseResultMap" parameterType="int">
+        select * from lawDoc where lawDoc.divided = 1 limit #{offset}, #{limit}
+    </select>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select lawDoc.title,
+               lawDoc.office,
+               lawDoc.publish,
+               lawDoc.expiry,
+               lawDoc.status,
+               lawDoc.type,
+               lawDoc.docText,
+               lawDoc.articleSum,
+               lawDoc.docCategory,
+               lawDoc.suffix,
+               lawDoc.divided,
+               lawDoc.docURL,
+               lawDoc.fullContent,
+               lawDoc.id
+        from lawDoc,
+             userLaw
+        where userLaw.userId = #{userId, jdbcType=INTEGER}
+          and lawDoc.id = userLaw.docId;
+    </select>
+
+</mapper>

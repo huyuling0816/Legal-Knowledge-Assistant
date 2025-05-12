@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor User
+participant Frontend
+participant Backend
+participant Database
+User -> Frontend: 交互
+Frontend -> Backend: 请求处理
+Backend -> Database: 数据读写
+Database --> Backend: 结果
+Backend --> Frontend: 数据与状态
+Frontend --> User: 更新页面
+@enduml

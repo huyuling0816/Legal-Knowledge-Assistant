@@ -1,0 +1,47 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor 用户
+participant 前端界面
+participant 后端
+activate 用户
+activate 前端界面
+
+loop 还有需要导入的法律
+    用户 -> 前端界面: 输入法律基本信息
+    用户 -> 前端界面: 输入法律正文或上传文档
+end
+用户 -> 前端界面: 点击确定按钮
+activate 后端
+前端界面 -> 后端: 发送创建法律请求
+后端 --> 前端界面: 创建结果
+前端界面 -> 前端界面: 跳转至我的上传页面
+activate 前端界面
+deactivate 前端界面
+deactivate 后端
+前端界面 --> 用户: 跳转至新页面
+
+
+alt 修改法律
+用户 -> 前端界面: 点击编辑按钮
+前端界面 -> 前端界面: 展示法律更新页面
+activate 前端界面
+deactivate 前端界面
+前端界面 --> 用户: 法律更新页面
+用户 -> 前端界面: 输入更新内容
+activate 后端
+前端界面 -> 后端: 发送更新法律请求
+后端 --> 前端界面: 更新结果
+前端界面 --> 用户: 结果反馈
+deactivate 后端
+else 删除法律
+用户 -> 前端界面: 点击删除按钮
+activate 后端
+前端界面 -> 后端: 发送删除法律请求
+后端 --> 前端界面: 删除结果
+前端界面 --> 用户: 结果反馈
+deactivate 后端
+end
+@enduml

@@ -1,0 +1,53 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lkms?useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 114061868hyl
+  elasticsearch:
+    schema: http
+    address: localhost:9200
+    #    caPath: src/main/resources/http_ca.crt
+    connectTimeout: 10000
+    socketTimeout: 15000
+    connectionRequestTimeout: 20000
+    maxConnectNum: 100
+    maxConnectPerRoute: 100
+#    username: elastic
+#    password: EmYqByqug_H5aIzTHyhK
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+  mapper-locations: classpath*:dataImpl/*Mapper.xml
+
+server:
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: 114061868hyl
+    keyStoreType: PKCS12
+    keyAlias: tomcat
+    enabled: true
+  #    port: 8080
+  port: 8443
+  servlet:
+    session:
+      cookie:
+        domain: 127.0.0.1
+        domain2: localhost
+
+cos:
+  baseUrl: https://law-info-1306186002.cos.ap-nanjing.myqcloud.com
+  appId: 1306186002
+  secretId: AKIDOdeRYR870f8MM7h53au0sa5LNEtKWfjd
+  secretKey: mNOBmAKH4h9OSK1Yv7UghfT2PdhDXn2C
+  regionName: ap-nanjing
+  bucketName: law-info-1306186002
+  folderPrefix: /lawDoc
+  notePrefix: /note
+
+service:
+  corsOrigin: http://127.0.0.1:4000,https://127.0.0.1:3000,https://localhost:3000,http://localhost:3000,http://127.0.0.1:3000
+
+resource:
+  dirPath: src/main/resources/temp/
